@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
-require 'seafoam'
+require 'cfg2asm'
 
 # This is the 'cfg2asm' command line entry point.
 
 begin
   # Run the command line.
-  commands = Seafoam::Commands.new($stdout)
+  commands = Cfg2asm::Commands.new($stdout)
   commands.cfg2asm(*ARGV)
 rescue StandardError => e
   if $DEBUG

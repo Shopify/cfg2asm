@@ -5,5 +5,5 @@ task :specs do
 end
 
 task :rubocop do
-  sh 'rubocop', 'bin', 'demos', 'lib', 'spec', 'tools'
+  sh 'rubocop', 'bin', 'lib', 'spec'
 end

@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        ruby: ['2.5', '2.6', '2.7', '3.0']
+        ruby: ['2.3', '2.4', '2.5', '2.6', '2.7', '3.0', '3.1']
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
@@ -22,13 +22,13 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - run: if [[ $(uname) == "Darwin" ]]; then brew install graphviz capstone; else sudo apt-get install graphviz libcapstone3; fi
+    - run: if [[ $(uname) == "Darwin" ]]; then brew install capstone; else sudo apt-get install libcapstone3; fi
     - run: bundle exec rake specs
   specs-no-dependencies:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        ruby: ['2.5', '2.6', '2.7', '3.0']
+        os: [ubuntu-latest]
+        ruby: ['3.1']
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2

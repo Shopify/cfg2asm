@@ -1,5 +1,0 @@
-module Seafoam
-  MAJOR_VERSION = 0
-  MINOR_VERSION = 11
-  VERSION = "#{MAJOR_VERSION}.#{MINOR_VERSION}"
-end
