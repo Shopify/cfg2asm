@@ -53,9 +53,6 @@ cfg2asm was forked from [Seafoam](https://github.com/Shopify/seafoam).
 
 cfg2asm was written by Chris Seaton at Shopify, chris.seaton@shopify.com.
 
-## Citations
-
-
 ## License
 
 MIT
