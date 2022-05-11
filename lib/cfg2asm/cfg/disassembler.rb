@@ -17,6 +17,8 @@ module Cfg2asm
         case [nmethod.code.arch, nmethod.code.arch_width]
         when %w[AMD64 64]
           crabstone_arch = [Crabstone::ARCH_X86, Crabstone::MODE_64]
+        when %w[aarch64 64]
+          crabstone_arch = [Crabstone::ARCH_ARM64, Crabstone::MODE_ARM]
         else
           raise "Unknown architecture #{nmethod.code.arch} and bit width #{nmethod.code.arch_width}"
         end
