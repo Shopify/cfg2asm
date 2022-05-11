@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.bindir = 'bin'
   spec.executables = %w[cfg2asm]
 
-  spec.required_ruby_version = '>= 2.3.7'
+  spec.required_ruby_version = '>= 2.5.9'
 
   spec.add_dependency 'crabstone', '~> 4.0'
 
