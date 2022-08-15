@@ -46,7 +46,7 @@ module Cfg2asm
         end
       end
 
-      def skip_over_cfg(name)
+      def skip_over_cfg(name1, name2)
         loop do
           line = @reader.readline("\n")
           case line
@@ -61,7 +61,7 @@ module Cfg2asm
             raise unless @state == :cfg
 
             @state = :any
-            break if @cfg_name == name
+            break if @cfg_name == name1 || @cfg_name == name2
           else
             next
           end

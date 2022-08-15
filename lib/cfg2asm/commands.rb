@@ -55,7 +55,7 @@ module Cfg2asm
 
         files.each_with_index do |file, n|
           parser = Cfg2asm::CFG::CFGParser.new(@out, file)
-          parser.skip_over_cfg 'After code installation'
+          parser.skip_over_cfg('After code installation', 'After code generation')
           nmethod = parser.read_nmethod
 
           disassembler = Cfg2asm::CFG::Disassembler.new(@out)
