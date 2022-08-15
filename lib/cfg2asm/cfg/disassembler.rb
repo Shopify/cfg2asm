@@ -13,9 +13,20 @@ module Cfg2asm
         nmethod.jump_tables.each do |t|
           # t.:position, :entry_format, :low, :high
           (t.low..t.high).each do |i|
-            (0...t.entry_format).each do |j|
-               # NOOP for x86
-              code.setbyte(t.position + (t.entry_format * i) + j, 0x90)
+            if t.entry_format == 4
+              code.setbyte(t.position + (t.entry_format * i) + 0, 0x0F)
+              code.setbyte(t.position + (t.entry_format * i) + 1, 0x1F)
+              code.setbyte(t.position + (t.entry_format * i) + 2, 0x40)
+              code.setbyte(t.position + (t.entry_format * i) + 3, 0x00)
+            elsif t.entry_format == 8
+              code.setbyte(t.position + (t.entry_format * i) + 0, 0x0F)
+              code.setbyte(t.position + (t.entry_format * i) + 1, 0x1F)
+              code.setbyte(t.position + (t.entry_format * i) + 2, 0x84)
+              code.setbyte(t.position + (t.entry_format * i) + 3, 0x00)
+              code.setbyte(t.position + (t.entry_format * i) + 4, 0x00)
+              code.setbyte(t.position + (t.entry_format * i) + 5, 0x00)
+              code.setbyte(t.position + (t.entry_format * i) + 6, 0x00)
+              code.setbyte(t.position + (t.entry_format * i) + 7, 0x00)
             end
           end
         end
