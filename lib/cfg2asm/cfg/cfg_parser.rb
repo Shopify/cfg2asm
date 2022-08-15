@@ -4,8 +4,9 @@ require 'zlib'
 module Cfg2asm
   module CFG
     Code = Struct.new(:arch, :arch_width, :base, :code)
+    JumpTable = Struct.new(:position, :entry_format, :low, :high)
     Comment = Struct.new(:offset, :comment)
-    NMethod = Struct.new(:code, :comments)
+    NMethod = Struct.new(:code, :comments, :jump_tables)
 
     # A parser for CFG files.
     class CFGParser
@@ -74,6 +75,7 @@ module Cfg2asm
         arch = nil
         arch_width = nil
         code = nil
+        jump_tables = []
         comments = []
         raise unless @reader.readline == "begin_nmethod\n"
 
@@ -89,6 +91,13 @@ module Cfg2asm
             raise if arch.nil? || arch_width.nil?
 
             code = Code.new(arch, arch_width, base, code)
+          when /  JumpTable (\d+) (\d+) (\d+) (\d+)  <\|\|@\n/
+            position = Regexp.last_match(1).to_i
+            entry_format = Regexp.last_match(2).to_i
+            low = Regexp.last_match(3).to_i
+            high = Regexp.last_match(4).to_i
+
+            jump_tables.push JumpTable.new(position, entry_format, low, high)
           when /  Comment (\d*) (.*)  <\|\|@\n/
             offset = Regexp.last_match(1).to_i
             comment = Regexp.last_match(2)
@@ -112,7 +121,7 @@ module Cfg2asm
             raise 'There is currently no case for this line. Please open an issue so it can be addressed.'
           end
         end
-        NMethod.new(code, comments)
+        NMethod.new(code, comments, jump_tables)
       end
     end
   end

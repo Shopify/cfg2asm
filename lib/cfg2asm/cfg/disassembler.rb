@@ -7,6 +7,19 @@ module Cfg2asm
       def initialize(out)
         @out = out
       end
+      
+      def turn_jump_table_into_noops(nmethod)
+        code = nmethod.code.code
+        nmethod.jump_tables.each do |t|
+          # t.:position, :entry_format, :low, :high
+          (t.low..t.high).each do |i|
+            (0...t.entry_format).each do |j|
+               # NOOP for x86
+              code.setbyte(t.position + (t.entry_format * i) + j, 0x90)
+            end
+          end
+        end
+      end
 
       def disassemble(nmethod, print_comments)
         require_crabstone
@@ -22,6 +35,8 @@ module Cfg2asm
         else
           raise "Unknown architecture #{nmethod.code.arch} and bit width #{nmethod.code.arch_width}"
         end
+
+        turn_jump_table_into_noops(nmethod)
 
         cs = Crabstone::Disassembler.new(*crabstone_arch)
         begin
