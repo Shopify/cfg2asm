@@ -7,6 +7,27 @@ module Cfg2asm
     def initialize(out)
       @out = out
     end
+    
+    def get_files_and_comments_flag(args)
+      comments = true
+      files = []
+
+      until args.empty?
+        arg = args.shift
+        if arg.start_with?('-')
+          case arg
+          when '--no-comments'
+            comments = false
+          else
+            raise ArgumentError, "unknown option #{arg}"
+          end
+        else
+          files.push arg
+        end
+      end
+      
+      [files, comments]
+    end
 
     def cfg2asm(*args)
       case args.first
@@ -21,23 +42,16 @@ module Cfg2asm
       when 'version', '-v', '-version', '--version'
         args = args.drop(1)
         version(*args)
-      else
-        comments = true
-        files = []
+      when 'summary'
+        args.shift
+        files, comments = get_files_and_comments_flag(args)
 
-        until args.empty?
-          arg = args.shift
-          if arg.start_with?('-')
-            case arg
-            when '--no-comments'
-              comments = false
-            else
-              raise ArgumentError, "unknown option #{arg}"
-            end
-          else
-            files.push arg
-          end
+        files.each_with_index do |file, n|
+          parser = Cfg2asm::CFG::CFGParser.new(@out, file)
+          parser.print_summar_of_content
         end
+      else
+        files, comments = get_files_and_comments_flag(args)
 
         files.each_with_index do |file, n|
           parser = Cfg2asm::CFG::CFGParser.new(@out, file)

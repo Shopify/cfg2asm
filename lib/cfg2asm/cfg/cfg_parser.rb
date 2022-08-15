@@ -19,6 +19,32 @@ module Cfg2asm
         @state = :any
         @cfg_name = nil
       end
+      
+      def print_summar_of_content
+        state = :any
+        loop do
+          line = @reader.readline("\n")
+          case line
+          when "begin_compilation\n"
+            state = :some
+            puts "Compilation:"
+          when "end_compilation\n"
+            state = :any
+          when "begin_cfg\n"
+            state = :some
+            puts "Config:"
+          when "end_cfg\n"
+            state = :any
+          when /  name "(.*)"\n/
+            if state == :some
+              puts "name: #{Regexp.last_match(1)}"
+              state = :any
+            end
+          else
+            next
+          end
+        end
+      end
 
       def skip_over_cfg(name)
         loop do
