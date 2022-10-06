@@ -2,7 +2,7 @@ require 'json'
 require 'set'
 
 module Cfg2asm
-  # Implementations of the command-line commands that you can run in Seafoam.
+  # Implementations of the command-line commands that you can run in cfg2asm.
   class Commands
     def initialize(out)
       @out = out

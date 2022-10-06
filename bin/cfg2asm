@@ -15,6 +15,6 @@ rescue StandardError => e
     raise e
   else
     # Otherwise, just print the message.
-    warn "seafoam: #{e.message}"
+    warn "cfg2asm: #{e.message}"
   end
 end
