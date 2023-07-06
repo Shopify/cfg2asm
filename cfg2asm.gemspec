@@ -8,6 +8,13 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/Shopify/cfg2asm'
   spec.license = 'MIT'
 
+  spec.metadata = {
+    "bug_tracker_uri" => "https://github.com/Shopify/cfg2asm/issues",
+    "source_code_uri" => "https://github.com/Shopify/cfg2asm",
+    "allowed_push_host" => "https://rubygems.org",
+  }
+
+
   spec.files = `git ls-files bin lib`.split("\n")
   spec.bindir = 'bin'
   spec.executables = %w[cfg2asm]
