@@ -22,7 +22,7 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - run: if [[ $(uname) == "Darwin" ]]; then brew install capstone; else sudo apt-get install libcapstone3; fi
+    - run: if [[ $(uname) == "Darwin" ]]; then brew install capstone; else sudo apt-get install libcapstone4; fi
     - run: bundle exec rake specs
   specs-no-dependencies:
     strategy:
