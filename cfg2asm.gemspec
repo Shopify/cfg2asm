@@ -9,11 +9,10 @@ Gem::Specification.new do |spec|
   spec.license = 'MIT'
 
   spec.metadata = {
-    "bug_tracker_uri" => "https://github.com/Shopify/cfg2asm/issues",
-    "source_code_uri" => "https://github.com/Shopify/cfg2asm",
-    "allowed_push_host" => "https://rubygems.org",
+    'bug_tracker_uri' => 'https://github.com/Shopify/cfg2asm/issues',
+    'source_code_uri' => 'https://github.com/Shopify/cfg2asm',
+    'allowed_push_host' => 'https://rubygems.org'
   }
-
 
   spec.files = `git ls-files bin lib`.split("\n")
   spec.bindir = 'bin'
@@ -25,5 +24,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'rake', '~> 13.0.6'
   spec.add_development_dependency 'rspec', '~> 3.8'
-  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop', '= 0.81'
 end
